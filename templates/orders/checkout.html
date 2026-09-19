@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load shop_extras %}
+{% block title %}Checkout — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="container-narrow container py-5">
+  <h1 class="h3 mb-4">Checkout</h1>
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="dash-card">
+        <h5 class="mb-3">Shipping Details</h5>
+        <form method="post">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6">{{ form.full_name.label_tag }}{{ form.full_name }}</div>
+            <div class="col-md-6">{{ form.email.label_tag }}{{ form.email }}</div>
+            <div class="col-md-6">{{ form.phone.label_tag }}{{ form.phone }}</div>
+            <div class="col-md-6">{{ form.city.label_tag }}{{ form.city }}</div>
+            <div class="col-12">{{ form.address.label_tag }}{{ form.address }}</div>
+            <div class="col-12">
+              <label class="form-label">Payment Method</label>
+              {{ form.payment_method }}
+            </div>
+          </div>
+          <button type="submit" class="btn btn-accent w-100 mt-4">Place Order</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="dash-card">
+        <h5 class="mb-3">Order Summary</h5>
+        {% for item in cart %}
+        <div class="d-flex justify-content-between small mb-2">
+          <span>{{ item.product.name }} {% if item.variant %}({{ item.variant.color_name }}){% endif %} × {{ item.quantity }}</span>
+          <span>{{ item.total_price|currency }}</span>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="d-flex justify-content-between fw-semibold">
+          <span>Subtotal</span><span>{{ cart.get_total_price|currency }}</span>
+        </div>
+        <p class="text-muted small mt-2 mb-0">Shipping fee (if applicable) is calculated after order placement based on your subtotal.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

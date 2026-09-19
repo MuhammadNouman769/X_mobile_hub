@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environment
+venv/
+env/
+.venv/
+ENV/
+
+# Django
+*.log
+# db.sqlite3
+# db.sqlite3-journal
+# media/
+# staticfiles/
+
+# Environment Variables
+# .env
+# .env.*
+# !.env.example
+
+# IDE / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
+
+# Django migrations
+# Don't ignore migrations in a real project
+# migrations/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Secrets / Local settings
+local_settings.py

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load shop_extras %}
+{% block title %}Shipping Policy — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="page-hero"><div class="container-narrow container"><h1 class="h3 text-white mb-0">Shipping Policy</h1></div></div>
+<div class="container-narrow container py-5 legal-page" style="max-width:820px;">
+  <h2 class="mt-0">Delivery Timeframes</h2>
+  <p>Orders are typically processed within 24 hours and delivered within 2-4 business days for major cities, and 4-7 business days for other locations across Pakistan.</p>
+
+  <h2>Shipping Charges</h2>
+  <p>We offer <strong>free delivery</strong> on all orders above {{ FREE_SHIPPING_THRESHOLD|currency }}. Orders below this amount incur a flat shipping fee, calculated automatically at checkout.</p>
+
+  <h2>Order Tracking</h2>
+  <p>Once your order is shipped, you will receive a confirmation with tracking details via email and SMS. You can also view your order status anytime from your account's order history page.</p>
+
+  <h2>Delivery Attempts</h2>
+  <p>Our courier partners will attempt delivery up to 2 times. If delivery is unsuccessful, the order will be returned to our warehouse and you will be contacted to arrange redelivery.</p>
+
+  <h2>Cash on Delivery</h2>
+  <p>Cash on Delivery is available nationwide. Please have the exact amount ready at the time of delivery.</p>
+</div>
+{% endblock %}

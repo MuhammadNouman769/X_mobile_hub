@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-narrow container pt-4">
+  <div class="hero p-4 p-lg-5">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="hero-eyebrow mb-2">Genuine phones · Official warranty · Fast delivery</div>
+        <h1>Every major mobile brand, one trusted store.</h1>
+        <p class="lead mt-3">From flagship cameras to budget-friendly battery kings — compare Apple, Samsung, Xiaomi, Oppo, Vivo, Realme, OnePlus, Google and more, then check out in seconds.</p>
+        <div class="d-flex gap-3 mt-4">
+          <a href="{% url 'products:product_list' %}" class="btn btn-accent btn-lg">Shop All Phones</a>
+          <a href="{% url 'products:product_list' %}?sort=best_selling" class="btn btn-outline-light btn-lg">Best Sellers</a>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+        {% if featured_products.0.default_variant %}
+        <img src="{{ featured_products.0.default_variant.image.url }}" class="hero-phone-art" alt="Featured phone">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-narrow container section-pad">
+  <h2 class="h4 mb-4">Shop by Category</h2>
+  <div class="row g-3">
+    {% for cat in categories %}
+    <div class="col-6 col-md-4 col-lg-2">
+      <a href="{{ cat.get_absolute_url }}" class="category-tile d-block text-decoration-none">
+        <i class="bi {{ cat.icon_class|default:'bi-phone' }}"></i>
+        <div class="fw-semibold small mt-2 text-dark">{{ cat.name }}</div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% if featured_products %}
+<div class="container-narrow container section-pad">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="h4 mb-0">Featured Phones</h2>
+    <a href="{% url 'products:product_list' %}" class="link-accent small">View All <i class="bi bi-arrow-right"></i></a>
+  </div>
+  <div class="row g-3">
+    {% for product in featured_products %}
+    <div class="col-6 col-md-4 col-lg-3">{% include 'products/_product_card.html' %}</div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if new_arrivals %}
+<div class="bg-accent-soft section-pad">
+  <div class="container-narrow container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="h4 mb-0">New Arrivals</h2>
+      <a href="{% url 'products:product_list' %}" class="link-accent small">View All <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <div class="row g-3">
+      {% for product in new_arrivals %}
+      <div class="col-6 col-md-4 col-lg-3">{% include 'products/_product_card.html' %}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="container-narrow container section-pad">
+  <h2 class="h4 mb-4">Shop by Brand</h2>
+  <div class="row g-3">
+    {% for brand in brands %}
+    <div class="col-4 col-md-2">
+      <a href="{{ brand.get_absolute_url }}" class="brand-chip d-flex align-items-center justify-content-center text-decoration-none">
+        {% if brand.logo %}<img src="{{ brand.logo.url }}" alt="{{ brand.name }}">{% else %}<span class="fw-semibold">{{ brand.name }}</span>{% endif %}
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% if best_sellers %}
+<div class="container-narrow container section-pad">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="h4 mb-0">Best Selling Phones</h2>
+    <a href="{% url 'products:product_list' %}?sort=best_selling" class="link-accent small">View All <i class="bi bi-arrow-right"></i></a>
+  </div>
+  <div class="row g-3">
+    {% for product in best_sellers %}
+    <div class="col-6 col-md-4 col-lg-3">{% include 'products/_product_card.html' %}</div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<div class="container-narrow container section-pad">
+  <div class="row g-4 text-center">
+    <div class="col-md-3"><i class="bi bi-patch-check text-accent fs-2"></i><h6 class="mt-2 mb-0">100% Genuine</h6><p class="text-muted small">Every phone ships with official brand warranty.</p></div>
+    <div class="col-md-3"><i class="bi bi-truck text-accent fs-2"></i><h6 class="mt-2 mb-0">Fast Delivery</h6><p class="text-muted small">Nationwide shipping, delivered in 2-4 days.</p></div>
+    <div class="col-md-3"><i class="bi bi-arrow-repeat text-accent fs-2"></i><h6 class="mt-2 mb-0">Easy Returns</h6><p class="text-muted small">7-day hassle-free return policy.</p></div>
+    <div class="col-md-3"><i class="bi bi-headset text-accent fs-2"></i><h6 class="mt-2 mb-0">24/7 Support</h6><p class="text-muted small">Real humans ready to help, any time.</p></div>
+  </div>
+</div>
+{% endblock %}

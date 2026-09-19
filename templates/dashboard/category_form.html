@@ -1,0 +1,15 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% block title %}Edit Category — Dashboard{% endblock %}
+{% block page_title %}Edit Category{% endblock %}
+{% block dashboard_content %}
+<div class="dash-card" style="max-width:520px;">
+  <form method="post">
+    {% csrf_token %}
+    <label class="form-label small">Name</label>{{ form.name }}
+    <label class="form-label small mt-2">Icon Class</label>{{ form.icon_class }}
+    <div class="form-check mt-2">{{ form.is_active }} <label class="form-check-label small">Active</label></div>
+    <button class="btn btn-accent w-100 mt-3" type="submit">Save Changes</button>
+    <a href="{% url 'dashboard:category_list' %}" class="btn btn-outline-ink w-100 mt-2">Cancel</a>
+  </form>
+</div>
+{% endblock %}

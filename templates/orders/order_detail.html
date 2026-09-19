@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load shop_extras %}
+{% block title %}Order {{ order.order_number }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="container-narrow container py-5">
+  <h1 class="h4 mb-4">Order {{ order.order_number }}</h1>
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="dash-card">
+        <table class="table align-middle mb-0">
+          <thead><tr class="text-muted small text-uppercase"><th>Product</th><th>Color</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead>
+          <tbody>
+            {% for item in order.items.all %}
+            <tr>
+              <td>{{ item.product_name }}</td>
+              <td>{{ item.color_name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.price|currency }}</td>
+              <td>{{ item.total_price|currency }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="dash-card">
+        <h6 class="mb-3">Order Info</h6>
+        <div class="d-flex justify-content-between small mb-2"><span class="text-muted">Status</span><span class="badge bg-{{ order.get_status_badge_class }}">{{ order.get_status_display }}</span></div>
+        <div class="d-flex justify-content-between small mb-2"><span class="text-muted">Placed on</span><span>{{ order.created_at|date:"d M Y" }}</span></div>
+        <div class="d-flex justify-content-between small mb-2"><span class="text-muted">Payment</span><span>{{ order.get_payment_method_display }}</span></div>
+        <div class="d-flex justify-content-between small mb-2"><span class="text-muted">Ship to</span><span class="text-end">{{ order.address }}, {{ order.city }}</span></div>
+        <hr>
+        <div class="d-flex justify-content-between small"><span>Subtotal</span><span>{{ order.subtotal|currency }}</span></div>
+        <div class="d-flex justify-content-between small"><span>Shipping</span><span>{{ order.shipping_fee|currency }}</span></div>
+        <div class="d-flex justify-content-between fw-semibold mt-2 pt-2 border-top"><span>Total</span><span>{{ order.total_amount|currency }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
