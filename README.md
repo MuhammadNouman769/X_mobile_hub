@@ -74,7 +74,14 @@ XMobileHub/
 
 ## Getting Started
 
-### 1. Create a virtual environment & install dependencies
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/MuhammadNouman769/X_mobile_hub.git
+cd X_mobile_hub
+```
+
+### 2. Create a virtual environment & install dependencies
 
 ```bash
 python -m venv venv
@@ -82,7 +89,13 @@ source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 2. Environment variables
+On Windows PowerShell, activate the virtual environment with:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### 3. Environment variables
 
 A working `.env` is already included for local development. To customize
 it, copy the example instead:
@@ -91,14 +104,14 @@ it, copy the example instead:
 cp .env.example .env
 ```
 
-### 3. Run migrations
+### 4. Run migrations
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 4. Seed the database (brands, categories, 110+ products, demo orders)
+### 5. Seed the database (brands, categories, 110+ products, demo orders)
 
 ```bash
 python manage.py seed_data
@@ -119,7 +132,7 @@ Re-running with `--flush` wipes and reseeds the catalog:
 python manage.py seed_data --flush
 ```
 
-### 5. Run the development server
+### 6. Run the development server
 
 ```bash
 python manage.py runserver
