@@ -10,6 +10,7 @@ env/
 .venv/
 ENV/
 
+
 # Django
 *.log
 # db.sqlite3
