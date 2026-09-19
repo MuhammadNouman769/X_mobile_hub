@@ -1,0 +1,41 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% block title %}Categories — Dashboard{% endblock %}
+{% block page_title %}Categories{% endblock %}
+{% block dashboard_content %}
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="dash-card">
+      <table class="table dash-table align-middle">
+        <thead><tr><th>Name</th><th>Products</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          {% for cat in categories %}
+          <tr data-row>
+            <td><i class="bi {{ cat.icon_class|default:'bi-tag' }} me-2 text-accent"></i>{{ cat.name }}</td>
+            <td>{{ cat.product_count }}</td>
+            <td>{% if cat.is_active %}<span class="badge bg-success">Active</span>{% else %}<span class="badge bg-secondary">Hidden</span>{% endif %}</td>
+            <td class="text-end">
+              <a href="{% url 'dashboard:category_update' cat.pk %}" class="btn btn-sm btn-outline-ink"><i class="bi bi-pencil"></i></a>
+              <button class="btn btn-sm btn-outline-danger" data-ajax-delete="{% url 'dashboard:category_delete_ajax' cat.pk %}" data-label="{{ cat.name }}"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="4" class="text-center text-muted py-4">No categories yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="dash-card">
+      <h6 class="mb-3">Add Category</h6>
+      <form method="post">
+        {% csrf_token %}
+        <label class="form-label small">Name</label>{{ form.name }}
+        <label class="form-label small mt-2">Icon Class</label>{{ form.icon_class }}
+        <div class="form-check mt-2">{{ form.is_active }} <label class="form-check-label small">Active</label></div>
+        <button class="btn btn-accent w-100 mt-3" type="submit">Add Category</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

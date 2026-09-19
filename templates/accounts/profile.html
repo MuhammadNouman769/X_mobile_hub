@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load shop_extras %}
+{% block title %}My Account — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="container-narrow container py-5">
+  <h1 class="h4 mb-4">My Account</h1>
+  <div class="row g-4">
+    <div class="col-lg-5">
+      <div class="dash-card">
+        <h6 class="mb-3">Profile Details</h6>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label small">First Name</label>{{ form.first_name }}</div>
+            <div class="col-md-6"><label class="form-label small">Last Name</label>{{ form.last_name }}</div>
+            <div class="col-12"><label class="form-label small">Email</label>{{ form.email }}</div>
+            <div class="col-12"><label class="form-label small">Phone</label>{{ form.phone }}</div>
+            <div class="col-12"><label class="form-label small">Address</label>{{ form.address }}</div>
+            <div class="col-md-6"><label class="form-label small">City</label>{{ form.city }}</div>
+            <div class="col-12"><label class="form-label small">Avatar</label>{{ form.avatar }}</div>
+          </div>
+          <button type="submit" class="btn btn-accent w-100 mt-4">Save Changes</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <div class="dash-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 class="mb-0">Recent Orders</h6>
+          <a href="{% url 'accounts:order_history' %}" class="small link-accent">View all</a>
+        </div>
+        {% for order in orders %}
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div>
+            <div class="fw-semibold small">{{ order.order_number }}</div>
+            <div class="text-muted" style="font-size:0.78rem;">{{ order.created_at|date:"d M Y" }}</div>
+          </div>
+          <span class="badge bg-{{ order.get_status_badge_class }}">{{ order.get_status_display }}</span>
+          <strong class="small">{{ order.total_amount|currency }}</strong>
+          <a href="{% url 'orders:order_detail' order.order_number %}" class="small link-accent">View</a>
+        </div>
+        {% empty %}
+        <p class="text-muted small">You haven't placed any orders yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

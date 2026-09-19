@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Refund &amp; Return Policy — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="page-hero"><div class="container-narrow container"><h1 class="h3 text-white mb-0">Refund &amp; Return Policy</h1></div></div>
+<div class="container-narrow container py-5 legal-page" style="max-width:820px;">
+  <h2 class="mt-0">7-Day Return Window</h2>
+  <p>If you're not satisfied with your purchase, you may request a return within 7 days of delivery, provided the product is unused, in its original packaging, and includes all accessories and documentation.</p>
+
+  <h2>Non-Returnable Situations</h2>
+  <ul>
+    <li>Physical damage or liquid damage caused after delivery</li>
+    <li>Missing original box, accessories, or invoice</li>
+    <li>Products with a broken warranty seal (unless defective on arrival)</li>
+  </ul>
+
+  <h2>Refund Process</h2>
+  <p>Once we receive and inspect your returned item, we will notify you of the approval or rejection of your refund. Approved refunds are processed within 5-7 business days to your original payment method, or as store credit for Cash on Delivery orders.</p>
+
+  <h2>Exchanges</h2>
+  <p>If your device arrives with a manufacturing defect, we offer a free exchange for the same model, subject to stock availability.</p>
+
+  <h2>How to Request a Return</h2>
+  <p>Contact our support team via the <a href="{% url 'pages:contact' %}" class="link-accent">Contact Us</a> page with your order number and reason for return, and we'll guide you through the next steps.</p>
+</div>
+{% endblock %}

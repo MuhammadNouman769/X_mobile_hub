@@ -1,0 +1,49 @@
+{% load shop_extras %}
+{% if cart|length == 0 %}
+<div class="text-center py-5">
+  <i class="bi bi-bag-x text-muted" style="font-size:3rem;"></i>
+  <p class="text-muted mt-3">Your cart is empty.</p>
+  <a href="{% url 'products:product_list' %}" class="btn btn-accent mt-2">Continue Shopping</a>
+</div>
+{% else %}
+<div class="table-responsive">
+  <table class="table align-middle">
+    <thead>
+      <tr class="text-muted small text-uppercase">
+        <th>Product</th><th>Price</th><th>Quantity</th><th>Total</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+      <tr data-cart-row data-key="{{ item.key }}">
+        <td>
+          <div class="d-flex align-items-center gap-3">
+            <img src="{% if item.variant %}{{ item.variant.image.url }}{% endif %}" alt="" style="width:56px;height:56px;object-fit:contain;background:#f4f4f5;border-radius:8px;">
+            <div>
+              <div class="fw-semibold small">{{ item.product.name }}</div>
+              {% if item.variant %}<div class="text-muted" style="font-size:0.8rem;">{{ item.variant.color_name }}</div>{% endif %}
+            </div>
+          </div>
+        </td>
+        <td>{{ item.price|currency }}</td>
+        <td>
+          <div class="qty-stepper">
+            <button type="button" data-qty-step="dec">-</button>
+            <input type="number" value="{{ item.quantity }}" min="1" data-qty>
+            <button type="button" data-qty-step="inc">+</button>
+          </div>
+        </td>
+        <td class="fw-semibold">{{ item.total_price|currency }}</td>
+        <td><button class="btn btn-sm text-danger" data-cart-remove-row><i class="bi bi-trash"></i></button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="d-flex justify-content-end">
+  <div style="min-width:280px;">
+    <div class="d-flex justify-content-between mb-2"><span>Subtotal</span><strong data-cart-total>{{ cart.get_total_price|currency }}</strong></div>
+    <a href="{% url 'orders:checkout' %}" class="btn btn-accent w-100">Proceed to Checkout</a>
+  </div>
+</div>
+{% endif %}

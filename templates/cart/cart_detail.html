@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Your Cart — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="container-narrow container py-5">
+  <h1 class="h3 mb-4">Your Shopping Cart</h1>
+  <div data-cart-table>
+    <div data-cart-page-body>
+      {% include 'cart/_cart_table.html' %}
+    </div>
+  </div>
+</div>
+{% endblock %}

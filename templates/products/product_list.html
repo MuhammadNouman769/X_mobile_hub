@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Shop Mobiles — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="page-hero mb-4">
+  <div class="container-narrow container">
+    <h1 class="h3 mb-1 text-white">
+      {% if current_category %}{{ current_category|title }}{% elif current_brand %}{{ current_brand|title }}{% else %}All Smartphones{% endif %}
+    </h1>
+    <p class="mb-0 text-white-50">Compare specs, colors and prices across every major brand.</p>
+  </div>
+</div>
+
+<div class="container-narrow container pb-5" data-shop-root data-filter-url="{% url 'products:product_filter_ajax' %}">
+  <div class="row g-4">
+    <div class="col-lg-3">
+      <div class="dash-card mb-3">
+        <h6 class="mb-3">Search</h6>
+        <input type="text" class="form-control form-control-sm" placeholder="Search this page..." data-shop-search value="{{ search_query }}">
+      </div>
+      <div class="dash-card mb-3">
+        <h6 class="mb-3">Brand</h6>
+        <select class="form-select form-select-sm" data-filter-input="brand">
+          <option value="">All Brands</option>
+          {% for b in brands %}
+          <option value="{{ b.slug }}" {% if current_brand == b.slug %}selected{% endif %}>{{ b.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="dash-card mb-3">
+        <h6 class="mb-3">Category</h6>
+        <select class="form-select form-select-sm" data-filter-input="category">
+          <option value="">All Categories</option>
+          {% for c in categories %}
+          <option value="{{ c.slug }}" {% if current_category == c.slug %}selected{% endif %}>{{ c.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="dash-card">
+        <h6 class="mb-3">Price Range</h6>
+        <div class="d-flex gap-2">
+          <input type="number" class="form-control form-control-sm" placeholder="Min" data-filter-input="min_price">
+          <input type="number" class="form-control form-control-sm" placeholder="Max" data-filter-input="max_price">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-9">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted small"><span data-result-count>{{ page_obj.paginator.count }}</span> products found</span>
+        <select class="form-select form-select-sm w-auto" data-filter-input="sort">
+          <option value="latest" {% if current_sort == 'latest' %}selected{% endif %}>Latest</option>
+          <option value="price_low" {% if current_sort == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+          <option value="price_high" {% if current_sort == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+          <option value="best_selling" {% if current_sort == 'best_selling' %}selected{% endif %}>Best Selling</option>
+        </select>
+      </div>
+
+      <div class="row g-3" data-product-grid>
+        {% include 'products/_product_grid.html' %}
+      </div>
+      <div data-pagination>
+        {% include 'products/_pagination.html' %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
